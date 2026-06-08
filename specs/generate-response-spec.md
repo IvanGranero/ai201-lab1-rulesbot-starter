@@ -43,6 +43,8 @@ Returns a fallback string (not an error) when `retrieved_chunks` is empty.
 
 ```
 [your answer here]
+Each chunk will contain game name and chunk only, with no distance, each chunk separated by two lines
+
 ```
 
 ---
@@ -53,6 +55,10 @@ Returns a fallback string (not an error) when `retrieved_chunks` is empty.
 
 ```
 [your answer here]
+You are a rules assistant. Answer ONLY using the provided rule text. 
+If the rules do not contain the answer, say clearly that the rules do not cover it. 
+Do not use outside knowledge or assumptions.
+
 ```
 
 ---
@@ -63,6 +69,8 @@ Returns a fallback string (not an error) when `retrieved_chunks` is empty.
 
 ```
 [your answer here]
+Always state which game the answer comes from. If multiple chunks are relevant, mention all games explicitly.
+
 ```
 
 ---
@@ -73,6 +81,8 @@ Returns a fallback string (not an error) when `retrieved_chunks` is empty.
 
 ```
 [your answer here]
+I couldn't find anything relevant in the loaded rule books. Try rephrasing your question — or check that your ingestion pipeline is working.
+
 ```
 
 ---
@@ -83,6 +93,9 @@ Returns a fallback string (not an error) when `retrieved_chunks` is empty.
 
 ```
 [your answer here]
+Filter out chunks with a cosine distance above a threshold (e.g., 0.3–0.4). 
+Tradeoff: filtering avoids noise but risks missing borderline answers. 
+We’ll keep a moderate threshold to balance precision and recall.
 ```
 
 ---
@@ -93,6 +106,9 @@ Returns a fallback string (not an error) when `retrieved_chunks` is empty.
 
 ```
 [your answer here]
+System message: Contains grounding + citation instructions.
+User message: Contains the original query plus the formatted context block.
+
 ```
 
 ---

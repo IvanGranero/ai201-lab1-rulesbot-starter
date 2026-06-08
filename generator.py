@@ -36,4 +36,43 @@ def generate_response(query, retrieved_chunks):
         )
 
     # Your implementation here.
-    return "⚙️ Response generation not yet implemented. Complete Milestone 3 to activate answers."
+
+    # Filter weak matches (optional threshold, adjust as needed)
+    threshold = 0.4
+    filtered = [c for c in retrieved_chunks if c["distance"] <= threshold]
+    if not filtered:
+        return (
+            "I couldn't find anything relevant in the loaded rule books. "
+            "Try rephrasing your question — or check that your ingestion pipeline is working."
+        )
+
+    # Format context
+    context_blocks = []
+    for c in filtered:
+        block = f"[GAME: {c['game']}]\n{c['text']}"
+        context_blocks.append(block)
+    context = "\n\n".join(context_blocks)
+
+    # Build messages
+    messages = [
+        {
+            "role": "system",
+            "content": (
+                "You are a rules assistant. Answer ONLY using the provided rule text. "
+                "If the rules do not contain the answer, say clearly that the rules do not cover it. "
+                "Always state which game the answer comes from."
+            ),
+        },
+        {
+            "role": "user",
+            "content": f"Question: {query}\n\nRelevant rules:\n{context}",
+        },
+    ]
+
+    # Call LLM
+    response = _client.chat.completions.create(
+        model=LLM_MODEL,
+        messages=messages,
+    )
+
+    return response.choices[0].message.content.strip()

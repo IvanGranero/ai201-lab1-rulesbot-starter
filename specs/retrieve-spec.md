@@ -46,6 +46,9 @@ Results should be ordered from most to least relevant (lowest to highest distanc
 
 ```
 [your answer here]
+        query_texts,
+        n_results,
+        include=["documents", "metadatas", "distances"]
 ```
 
 ---
@@ -56,6 +59,8 @@ Results should be ordered from most to least relevant (lowest to highest distanc
 
 ```
 [your answer here]
+include
+
 ```
 
 ---
@@ -66,6 +71,8 @@ Results should be ordered from most to least relevant (lowest to highest distanc
 
 ```
 [your answer here]
+index zero [0]
+it is a list for multiple query strings
 ```
 
 ---
@@ -76,6 +83,7 @@ Results should be ordered from most to least relevant (lowest to highest distanc
 
 ```
 [your answer here]
+no threshold approach will avoid the case where a valid answer is filtered out because its embedding distance sits just above an arbitrary line
 ```
 
 ---
@@ -86,6 +94,9 @@ Results should be ordered from most to least relevant (lowest to highest distanc
 
 ```
 [your answer here]
+a- checking for empty collection before calling the query avoiding a ChromaDB error
+b- still return the top n_results, they are the best even if not great
+c- mixed results can be a correct a behavior if the user query matches multiple games
 ```
 
 ---
@@ -107,4 +118,6 @@ Does it make sense? [yes / no / explain]
 
 ```
 [your answer here]
+
+
 ```

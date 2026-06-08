@@ -117,10 +117,12 @@ handle these cases better, at the cost of more implementation complexity.
 
 ```
 [your answer here]
+149 chunks stored
 ```
 
 **One thing that surprised you or didn't match your expectations:**
 
 ```
 [your answer here]
+the app doesn't return any relevant information yet
 ```

@@ -69,4 +69,26 @@ def retrieve(query, n_results=N_RESULTS):
         return []
 
     # Your implementation here.
-    return []
+    
+    results = _collection.query(
+        query_texts=[query],
+        n_results=n_results,
+        include=["documents", "metadatas", "distances"],
+    )
+
+    # Flatten the nested lists (only one query, so index [0])
+    documents = results["documents"][0]
+    metadatas = results["metadatas"][0]
+    distances = results["distances"][0]
+
+    # Build the list of dicts
+    output = []
+    for text, meta, dist in zip(documents, metadatas, distances):
+        output.append({
+            "text": text,
+            "game": meta.get("game", None),
+            "distance": dist,
+        })
+
+    return output
+
